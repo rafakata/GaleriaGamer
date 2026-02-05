@@ -1,6 +1,6 @@
 const db = require('./database');
 
-// Crear tabla usuarios (Igual que en todo-list)
+// Crear tabla usuarios
 db.prepare(`
     CREATE TABLE IF NOT EXISTS users (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -10,7 +10,7 @@ db.prepare(`
     )
 `).run();
 
-// Crear tabla videojuegos (Adaptada para el Reto)
+// Crear tabla videojuegos (Añadido campo image)
 db.prepare(`
     CREATE TABLE IF NOT EXISTS games (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -18,9 +18,10 @@ db.prepare(`
         platform TEXT,
         genre TEXT,
         status TEXT,
+        image TEXT, 
         userId INTEGER,
         FOREIGN KEY(userId) REFERENCES users(id)
     )
 `).run();
 
-console.log('Tablas creadas correctamente.');
+console.log('Tablas creadas correctamente (incluyendo campo imagen).');

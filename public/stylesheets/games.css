@@ -1,0 +1,44 @@
+/* Aspecto de las cartas de videojuegos */
+.game-card-img-container {
+    aspect-ratio: 2/3;
+    position: relative;
+    background-color: #1a1a1a;
+}
+
+.game-card-img-container img {
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+}
+
+/* Colores específicos por plataforma (Petición 3) */
+.badge-playstation {
+    border: 1px solid #00439c;
+    color: #00439c;
+    background-color: black;
+}
+
+.badge-xbox {
+    border: 1px solid #107c10;
+    color: #107c10;
+    background-color: black;
+}
+
+.badge-nintendo {
+    border: 1px solid #e60012;
+    color: #e60012;
+    background-color: black;
+}
+
+.badge-pc {
+    border: 1px solid #0dcaf0;
+    color: #0dcaf0;
+    background-color: black;
+}
+
+/* Efecto hover opcional para las cards */
+.hover-effect:hover {
+    transform: translateY(-5px);
+    transition: transform 0.3s ease;
+    border-color: #ffc107 !important;
+}

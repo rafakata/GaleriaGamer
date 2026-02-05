@@ -5,7 +5,7 @@
                 <h3 class="mb-0"><%= game ? 'Editar Videojuego' : 'Nuevo Videojuego' %></h3>
             </div>
             <div class="card-body">
-                <form action="<%= game ? '/games/edit/' + game.id : '/games/new' %>" method="POST">
+                <form action="<%= game ? '/games/edit/' + game.id : '/games/new' %>" method="POST" enctype="multipart/form-data">
                     
                     <div class="mb-3">
                         <label class="form-label">Título</label>
@@ -34,6 +34,17 @@
                             <option value="Jugando" <%= (game && game.status === 'Jugando') ? 'selected' : '' %>>Jugando</option>
                             <option value="Terminado" <%= (game && game.status === 'Terminado') ? 'selected' : '' %>>Terminado</option>
                         </select>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label">Portada del Juego</label>
+                        <input type="file" name="image" class="form-control bg-dark text-white border-secondary" accept="image/*">
+                        <% if (game && game.image) { %>
+                            <div class="mt-2">
+                                <small class="text-light">Imagen actual:</small><br>
+                                <img src="/images/uploads/<%= game.image %>" alt="Portada" style="height: 100px; border-radius: 5px;">
+                            </div>
+                        <% } %>
                     </div>
 
                     <div class="d-grid gap-2">

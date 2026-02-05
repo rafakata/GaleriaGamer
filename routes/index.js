@@ -1,22 +1,33 @@
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
+const multer = require('multer'); // IMPORTANTE
+const path = require('path');
 const userDAO = require('../data/user-dao');
 const gameDAO = require('../data/game-dao');
 const isAuthenticated = require('../middlewares/auth');
 
-// --- RUTAS DE AUTENTICACIÓN ---
+// --- CONFIGURACIÓN MULTER (Subida de archivos) ---
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, 'public/images/uploads/') // Carpeta destino
+    },
+    filename: function (req, file, cb) {
+        // Generamos nombre único: fecha + nombre original
+        cb(null, Date.now() + '-' + file.originalname)
+    }
+});
+const upload = multer({ storage: storage });
 
-// Login (GET)
+
+// --- RUTAS DE AUTENTICACIÓN (Sin cambios) ---
 router.get('/login', (req, res) => {
     res.render('login', { error: null });
 });
 
-// Login (POST)
 router.post('/login', (req, res) => {
     const { email, password } = req.body;
     const user = userDAO.getUserByEmail(email);
-
     if (user && bcrypt.compareSync(password, user.password)) {
         req.session.user = user;
         res.redirect('/');
@@ -25,13 +36,11 @@ router.post('/login', (req, res) => {
     }
 });
 
-// Logout
 router.get('/logout', (req, res) => {
     req.session.destroy();
     res.redirect('/login');
 });
 
-// Registro rápido (para pruebas)
 router.post('/register', (req, res) => {
     const { name, email, password } = req.body;
     try {
@@ -42,11 +51,11 @@ router.post('/register', (req, res) => {
     }
 });
 
-// --- RUTAS DE VIDEOJUEGOS (Protegidas) ---
 
-// Listado (Dashboard) con Filtros
+// --- RUTAS DE VIDEOJUEGOS ---
+
+// Listado
 router.get('/', isAuthenticated, (req, res) => {
-    // Recogemos los filtros de la URL (query strings)
     const filters = {
         platform: req.query.platform,
         genre: req.query.genre,
@@ -57,33 +66,35 @@ router.get('/', isAuthenticated, (req, res) => {
     res.render('games-list', { user: req.session.user, games, filters });
 });
 
-// Formulario de Crear (GET)
 router.get('/games/new', isAuthenticated, (req, res) => {
     res.render('game-form', { user: req.session.user, game: null });
 });
 
-// Crear Juego (POST)
-router.post('/games/new', isAuthenticated, (req, res) => {
+// Crear Juego (POST) - AÑADIDO: upload.single('image')
+router.post('/games/new', isAuthenticated, upload.single('image'), (req, res) => {
     const { title, platform, genre, status } = req.body;
-    gameDAO.create(title, platform, genre, status, req.session.user.id);
+    // Si subió archivo, cogemos el nombre, si no, null
+    const image = req.file ? req.file.filename : null; 
+    
+    gameDAO.create(title, platform, genre, status, image, req.session.user.id);
     res.redirect('/');
 });
 
-// Formulario de Editar (GET)
 router.get('/games/edit/:id', isAuthenticated, (req, res) => {
     const game = gameDAO.getById(req.params.id, req.session.user.id);
     if (!game) return res.redirect('/');
     res.render('game-form', { user: req.session.user, game });
 });
 
-// Editar Juego (POST)
-router.post('/games/edit/:id', isAuthenticated, (req, res) => {
+// Editar Juego (POST) - AÑADIDO: upload.single('image')
+router.post('/games/edit/:id', isAuthenticated, upload.single('image'), (req, res) => {
     const { title, platform, genre, status } = req.body;
-    gameDAO.update(req.params.id, title, platform, genre, status, req.session.user.id);
+    const image = req.file ? req.file.filename : null; // Si hay nueva imagen
+    
+    gameDAO.update(req.params.id, title, platform, genre, status, image, req.session.user.id);
     res.redirect('/');
 });
 
-// Borrar Juego
 router.get('/games/delete/:id', isAuthenticated, (req, res) => {
     gameDAO.delete(req.params.id, req.session.user.id);
     res.redirect('/');

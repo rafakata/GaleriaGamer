@@ -1,0 +1,40 @@
+/* Importación de fuente */
+@import url('https://fonts.googleapis.com/css2?family=Tiny5&display=swap');
+
+/* FIX OBLIGATORIO: 100% ALTO Y ANCHO */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    overflow-x: hidden;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    background-color: #050505; /* Negro puro solicitado */
+}
+
+.brand-title {
+    font-family: "Tiny5", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    color: white;
+}
+
+/* Contenedor principal para empujar el footer */
+main {
+    flex: 1;
+    width: 100%;
+}
+
+.full-viewport {
+    width: 100%;
+    padding: 2rem;
+}
+
+.navbar {
+    background-color: #000 !important;
+    border-bottom: 1px solid #333;
+}

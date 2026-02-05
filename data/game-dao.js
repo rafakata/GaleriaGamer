@@ -1,7 +1,7 @@
 const db = require('./database');
 
 class GameDAO {
-    // Obtener juegos de un usuario con filtros opcionales
+    // Obtener juegos con filtros
     getAll(userId, filters = {}) {
         let query = 'SELECT * FROM games WHERE userId = ?';
         const params = [userId];
@@ -28,14 +28,22 @@ class GameDAO {
         return stmt.get(id, userId);
     }
 
-    create(title, platform, genre, status, userId) {
-        const stmt = db.prepare('INSERT INTO games (title, platform, genre, status, userId) VALUES (?, ?, ?, ?, ?)');
-        return stmt.run(title, platform, genre, status, userId);
+    // AÑADIDO: parámetro image
+    create(title, platform, genre, status, image, userId) {
+        const stmt = db.prepare('INSERT INTO games (title, platform, genre, status, image, userId) VALUES (?, ?, ?, ?, ?, ?)');
+        return stmt.run(title, platform, genre, status, image, userId);
     }
 
-    update(id, title, platform, genre, status, userId) {
-        const stmt = db.prepare('UPDATE games SET title = ?, platform = ?, genre = ?, status = ? WHERE id = ? AND userId = ?');
-        return stmt.run(title, platform, genre, status, id, userId);
+    // AÑADIDO: parámetro image (si es null, no se actualiza la imagen)
+    update(id, title, platform, genre, status, image, userId) {
+        // Lógica: Si el usuario sube imagen nueva, la actualizamos. Si no, mantenemos la vieja.
+        if (image) {
+            const stmt = db.prepare('UPDATE games SET title = ?, platform = ?, genre = ?, status = ?, image = ? WHERE id = ? AND userId = ?');
+            return stmt.run(title, platform, genre, status, image, id, userId);
+        } else {
+            const stmt = db.prepare('UPDATE games SET title = ?, platform = ?, genre = ?, status = ? WHERE id = ? AND userId = ?');
+            return stmt.run(title, platform, genre, status, id, userId);
+        }
     }
 
     delete(id, userId) {
