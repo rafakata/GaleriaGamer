@@ -1,0 +1,56 @@
+<div class="row justify-content-center align-items-center" style="min-height: 75vh;">
+    <div class="col-12 col-sm-10 col-md-6 col-lg-4">
+        
+        <div class="card bg-dark border-secondary shadow-lg mb-4">
+            <div class="card-body p-5">
+                <h2 class="text-center brand-title mb-4" style="font-size: 1.5rem;">Identificación</h2>
+                
+                <% if (error) { %>
+                    <div class="alert alert-danger py-2 small"><%= error %></div>
+                <% } %>
+
+                <form action="/login" method="POST">
+                    <div class="mb-3">
+                        <label class="form-label small text-secondary">EMAIL</label>
+                        <input type="email" name="email" class="form-control bg-black text-white border-secondary" required>
+                    </div>
+                    <div class="mb-4">
+                        <label class="form-label small text-secondary">CONTRASEÑA</label>
+                        <input type="password" name="password" class="form-control bg-black text-white border-secondary" required>
+                    </div>
+                    <button type="submit" class="btn btn-warning w-100 fw-bold py-2">ENTRAR</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="text-center">
+            <button class="btn btn-outline-info w-100 fw-bold mb-3" type="button" 
+                    data-bs-toggle="collapse" data-bs-target="#collapseRegistro" 
+                    aria-expanded="false" aria-controls="collapseRegistro">
+                ¿NUEVO AQUÍ? REGISTRARSE
+            </button>
+
+            <div class="collapse" id="collapseRegistro">
+                <div class="card card-body bg-black border-secondary shadow">
+                    <h5 class="brand-title text-center mb-3" style="font-size: 1rem;">Crear Cuenta</h5>
+                    <form action="/register" method="POST">
+                        <div class="mb-2">
+                            <input type="text" name="name" placeholder="Nombre de usuario" 
+                                   class="form-control form-control-sm bg-dark text-white border-secondary" required>
+                        </div>
+                        <div class="mb-2">
+                            <input type="email" name="email" placeholder="Correo electrónico" 
+                                   class="form-control form-control-sm bg-dark text-white border-secondary" required>
+                        </div>
+                        <div class="mb-3">
+                            <input type="password" name="password" placeholder="Establecer contraseña" 
+                                   class="form-control form-control-sm bg-dark text-white border-secondary" required>
+                        </div>
+                        <button type="submit" class="btn btn-info w-100 btn-sm fw-bold">FINALIZAR REGISTRO</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

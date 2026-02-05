@@ -1,0 +1,47 @@
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card bg-secondary shadow">
+            <div class="card-header bg-black text-white">
+                <h3 class="mb-0"><%= game ? 'Editar Videojuego' : 'Nuevo Videojuego' %></h3>
+            </div>
+            <div class="card-body">
+                <form action="<%= game ? '/games/edit/' + game.id : '/games/new' %>" method="POST">
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Título</label>
+                        <input type="text" name="title" class="form-control" value="<%= game ? game.title : '' %>" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Plataforma</label>
+                        <select name="platform" class="form-select" required>
+                            <option value="PC" <%= (game && game.platform === 'PC') ? 'selected' : '' %>>PC</option>
+                            <option value="PlayStation" <%= (game && game.platform === 'PlayStation') ? 'selected' : '' %>>PlayStation</option>
+                            <option value="Xbox" <%= (game && game.platform === 'Xbox') ? 'selected' : '' %>>Xbox</option>
+                            <option value="Nintendo" <%= (game && game.platform === 'Nintendo') ? 'selected' : '' %>>Nintendo</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Género</label>
+                        <input type="text" name="genre" class="form-control" value="<%= game ? game.genre : '' %>" placeholder="Ej: RPG, Acción..." required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Estado</label>
+                        <select name="status" class="form-select" required>
+                            <option value="Pendiente" <%= (game && game.status === 'Pendiente') ? 'selected' : '' %>>Pendiente</option>
+                            <option value="Jugando" <%= (game && game.status === 'Jugando') ? 'selected' : '' %>>Jugando</option>
+                            <option value="Terminado" <%= (game && game.status === 'Terminado') ? 'selected' : '' %>>Terminado</option>
+                        </select>
+                    </div>
+
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-success btn-lg">Guardar</button>
+                        <a href="/" class="btn btn-dark">Cancelar</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GameGaleria</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tiny5&display=swap" rel="stylesheet">
+
+    <style>
+        /* FIX OBLIGATORIO: 100% ALTO Y ANCHO */
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: #0d0d0d; /* Negro más profundo */
+        }
+        .brand-title {
+            font-family: "Tiny5", cursive;
+            letter-spacing: 2px;
+            color: white; /* Dorado/Amarillo Gamer */
+            text-transform: uppercase;
+        }
+        main {
+            flex: 1; /* Esto empuja el footer al final */
+            display: flex;
+            flex-direction: column;
+        }
+        /* Ajuste para que el contenido no pegue a los bordes pero ocupe el ancho */
+        .full-content {
+            width: 100%;
+            padding: 2rem;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-black border-bottom border-secondary p-3">
+        <div class="container-fluid">
+            <a class="navbar-brand fs-2 brand-title" href="/">GameGaleria</a>
+            <% if (locals.user) { %>
+                <div class="d-flex align-items-center">
+                    <span class="me-3 text-secondary">Bienvenido, <strong><%= user.name %></strong></span>
+                    <a href="/logout" class="btn btn-outline-danger btn-sm">Cerrar Sesión</a>
+                </div>
+            <% } %>
+        </div>
+    </nav>
+
+    <main>
+        <div class="container-fluid full-content">
+            <%- body %>
+        </div>
+    </main>
+
+    <footer class="bg-black text-secondary py-4 border-top border-secondary mt-4">
+        <div class="container-fluid text-center">
+            <small class="brand-title" style="font-size: 0.8rem;">GameGaleria 2026 - Control de Colección</small>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

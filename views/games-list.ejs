@@ -1,0 +1,102 @@
+<div class="d-flex justify-content-between align-items-center mb-5">
+    <h1 class="brand-title">Mi Galería Personal</h1>
+    <a href="/games/new" class="btn btn-warning btn-lg fw-bold shadow">➕ NUEVO VIDEOJUEGO</a>
+</div>
+
+<div class="card bg-dark border-secondary mb-5 shadow">
+    <div class="card-body p-4">
+        <form action="/" method="GET" class="row g-3 align-items-end">
+            <div class="col-md-3">
+                <label class="form-label small fw-bold text-secondary">PLATAFORMA</label>
+                <select name="platform" class="form-select bg-black text-white border-secondary">
+                    <option value="">Todas</option>
+                    <option value="PC" <%= filters.platform === 'PC' ? 'selected' : '' %>>PC</option>
+                    <option value="PlayStation" <%= filters.platform === 'PlayStation' ? 'selected' : '' %>>PlayStation</option>
+                    <option value="Xbox" <%= filters.platform === 'Xbox' ? 'selected' : '' %>>Xbox</option>
+                    <option value="Nintendo" <%= filters.platform === 'Nintendo' ? 'selected' : '' %>>Nintendo</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label class="form-label small fw-bold text-secondary">ESTADO</label>
+                <select name="status" class="form-select bg-black text-white border-secondary">
+                    <option value="">Todos</option>
+                    <option value="Pendiente" <%= filters.status === 'Pendiente' ? 'selected' : '' %>>Pendiente</option>
+                    <option value="Jugando" <%= filters.status === 'Jugando' ? 'selected' : '' %>>Jugando</option>
+                    <option value="Terminado" <%= filters.status === 'Terminado' ? 'selected' : '' %>>Terminado</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <button type="submit" class="btn btn-primary w-100 fw-bold">FILTRAR</button>
+            </div>
+            <div class="col-md-2">
+                <a href="/" class="btn btn-outline-secondary w-100">LIMPIAR</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<% if (games && games.length) { %>
+<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4 row-cols-xxl-5 g-4">
+    <% games.forEach(game => { %>
+        <div class="col">
+            <div class="card h-100 bg-black border-secondary shadow-lg overflow-hidden">
+                <div style="aspect-ratio: 2/3; position: relative; background-color: #1a1a1a;">
+                    <% if (game.image) { %>
+                        <img src="/images/uploads/<%= game.image %>" class="w-100 h-100" style="object-fit: cover;" alt="<%= game.title %>">
+                    <% } else { %>
+                        <div class="d-flex h-100 align-items-center justify-content-center">
+                            <i class="bi bi-image text-secondary" style="font-size: 3rem;"></i>
+                        </div>
+                    <% } %>
+                    
+                    <div class="position-absolute top-0 end-0 m-2">
+                        <% if(game.status === 'Terminado') { %>
+                            <span class="badge bg-success shadow">TERMINADO</span>
+                        <% } else if (game.status === 'Jugando') { %>
+                            <span class="badge bg-warning text-dark shadow">JUGANDO</span>
+                        <% } else { %>
+                            <span class="badge bg-secondary shadow">PENDIENTE</span>
+                        <% } %>
+                    </div>
+                </div>
+
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title fw-bold text-white mb-3 text-uppercase" style="font-size: 1rem;"><%= game.title %></h5>
+                    
+                    <div class="mb-4">
+                        <% if (game.platform === 'PlayStation') { %>
+                            <span class="badge py-2 px-3 w-100 border border-primary text-primary bg-black">
+                                <i class="bi bi-playstation me-2"></i> PLAYSTATION
+                            </span>
+                        <% } else if (game.platform === 'Xbox') { %>
+                            <span class="badge py-2 px-3 w-100 border border-success text-success bg-black">
+                                <i class="bi bi-xbox me-2"></i> XBOX
+                            </span>
+                        <% } else if (game.platform === 'Nintendo') { %>
+                            <span class="badge py-2 px-3 w-100 border border-danger text-danger bg-black">
+                                <i class="bi bi-nintendo-switch me-2"></i> NINTENDO
+                            </span>
+                        <% } else if (game.platform === 'PC') { %>
+                            <span class="badge py-2 px-3 w-100 border border-info text-info bg-black">
+                                <i class="bi bi-pc-display me-2"></i> PC / STEAM
+                            </span>
+                        <% } %>
+                    </div>
+
+                    <div class="d-flex justify-content-between mt-auto">
+                        <a href="/games/edit/<%= game.id %>" class="btn btn-sm btn-outline-light"><i class="bi bi-pencil"></i></a>
+                        <a href="/games/delete/<%= game.id %>" class="btn btn-sm btn-outline-danger" onclick="return confirm('¿Eliminar?')">
+                            <i class="bi bi-trash"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <% }) %>
+</div>
+<% } else { %>
+    <div class="alert alert-dark text-center border-secondary">
+        <h4 class="alert-heading">¡Vaya!</h4>
+        <p>No tienes juegos en la colección.</p>
+    </div>
+<% } %>
