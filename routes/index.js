@@ -20,7 +20,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 
-// --- RUTAS DE AUTENTICACIÓN (Sin cambios) ---
+// --- RUTAS DE AUTENTICACIÓN ---
 router.get('/login', (req, res) => {
     res.render('login', { error: null });
 });

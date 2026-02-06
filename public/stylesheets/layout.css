@@ -2,7 +2,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Tiny5&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Jersey+20&display=swap');
 
-/* FIX OBLIGATORIO: 100% ALTO Y ANCHO */
 html, body {
     height: 100%;
     margin: 0;
@@ -17,7 +16,7 @@ html, body {
 body {
     display: flex;
     flex-direction: column;
-    background-color: #050505; /* Negro puro solicitado */
+    background-color: #050505;
 }
 
 .brand-title {

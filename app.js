@@ -4,11 +4,7 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const session = require('express-session');
-const expressLayouts = require('express-ejs-layouts'); // IMPORTANTE: Necesitas instalar esto si no lo hiciste, pero mejor lo hacemos manual como en todo-list usando include o layout property
-
-// NOTA: El repositorio todo-list usa layout.ejs automáticamente si está configurado. 
-// Vamos a usar la configuración estándar simple.
-
+const expressLayouts = require('express-ejs-layouts'); 
 const indexRouter = require('./routes/index');
 
 const app = express();
@@ -19,7 +15,7 @@ app.set('view engine', 'ejs');
 
 // Habilitar layouts
 app.use(expressLayouts);
-app.set('layout', 'layout'); // Busca layout.ejs por defecto
+app.set('layout', 'layout');
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -53,7 +49,7 @@ app.use(function(err, req, res, next) {
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
   res.status(err.status || 500);
-  res.render('error'); // Necesitarás un error.ejs básico o renderizar texto
+  res.render('error'); 
 });
 
 module.exports = app;
