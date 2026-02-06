@@ -3,7 +3,7 @@
         
         <div class="card bg-dark border-secondary shadow-lg mb-4">
             <div class="card-body p-5">
-                <h2 class="text-center brand-title mb-4" style="font-size: 1.5rem;">Identificación</h2>
+                <h2 class="text-center login-title mb-4" style="font-size: 1.5rem;">Identificación</h2>
                 
                 <% if (error) { %>
                     <div class="alert alert-danger py-2 small text-center"><%= error %></div>
@@ -18,7 +18,7 @@
                         <label class="form-label small text-secondary">CONTRASEÑA</label>
                         <input type="password" name="password" class="form-control bg-black text-white border-secondary" required>
                     </div>
-                    <button type="submit" class="btn btn-warning w-100 fw-bold py-2">ENTRAR</button>
+                    <button type="submit" class="btn btn-primary w-100 fw-bold py-2">ENTRAR</button>
                 </form>
             </div>
         </div>
@@ -26,12 +26,12 @@
         <div class="text-center">
             <button class="btn btn-outline-info w-100 fw-bold mb-3" type="button" 
                     data-bs-toggle="collapse" data-bs-target="#collapseRegistro">
-                ¿NUEVO AQUÍ? REGISTRARSE
+                ¿NUEVO AQUÍ? REGÍSTRATE
             </button>
 
             <div class="collapse" id="collapseRegistro">
                 <div class="card card-body bg-black border-secondary shadow">
-                    <h5 class="brand-title text-center mb-3" style="font-size: 1rem;">Nuevo Recluta</h5>
+                    <h5 class="login-title text-center mb-3" style="font-size: 1rem;">NUEVO USUARIO</h5>
                     <form action="/register" method="POST">
                         <input type="text" name="name" placeholder="Usuario" class="form-control form-control-sm bg-dark text-white border-secondary mb-2" required>
                         <input type="email" name="email" placeholder="Email" class="form-control form-control-sm bg-dark text-white border-secondary mb-2" required>

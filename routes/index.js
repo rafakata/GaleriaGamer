@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
-const multer = require('multer'); // IMPORTANTE
+const multer = require('multer'); // PARA SUBIR LAS FOTOS
 const path = require('path');
 const userDAO = require('../data/user-dao');
 const gameDAO = require('../data/game-dao');
