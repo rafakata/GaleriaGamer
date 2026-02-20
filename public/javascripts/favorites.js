@@ -1,4 +1,3 @@
-document.addEventListener('DOMContentLoaded', function() {
 // Script para favoritos y filtrado en games-list.ejs
 // Guarda y gestiona favoritos usando LocalStorage
 document.addEventListener('DOMContentLoaded', function() {

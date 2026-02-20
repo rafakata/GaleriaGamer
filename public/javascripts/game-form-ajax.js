@@ -1,4 +1,3 @@
-document.addEventListener('DOMContentLoaded', function() {
 // Script para AJAX en el formulario de creación/edición de videojuegos
 // Envía el formulario por AJAX y muestra mensajes sin recargar
 document.addEventListener('DOMContentLoaded', function() {
